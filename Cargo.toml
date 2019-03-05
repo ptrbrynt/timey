@@ -1,0 +1,7 @@
+[package]
+name = "timey"
+version = "0.1.0"
+authors = ["Peter Bryant <petermbryant@gmail.com>"]
+edition = "2018"
+
+[dependencies]
