@@ -2,7 +2,7 @@
 
 Timey is a command-line application written in Rust which allows for quick and easy translation between timestamps and formatted date-times.
 
-## Installation
+## Installation
 
 _Coming soon..._
 
