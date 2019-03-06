@@ -6,6 +6,10 @@ license = "MIT"
 authors = ["Peter Bryant <petermbryant@gmail.com>"]
 edition = "2018"
 
+documentation = "https://github.com/ptrbrynt/timey"
+homepage = "https://github.com/ptrbrynt/timey"
+repository = "https://github.com/ptrbrynt/timey"
+
 [dependencies]
 clap = "2.32.0"
 chrono = "0.4"
