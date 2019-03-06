@@ -6,7 +6,13 @@ Timey is a command-line application written in Rust which allows for quick and e
 
 ## Installation
 
-_Coming soon..._
+First you'll need to install Rust. There are instructions [here](https://www.rust-lang.org/tools/install).
+
+Once you have Rust installed, simply run:
+
+```bash
+cargo install timey
+```
 
 ## Usage
 
