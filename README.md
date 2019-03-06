@@ -1,6 +1,10 @@
 # Timey
 
 [![Build Status](https://travis-ci.org/ptrbrynt/timey.svg?branch=develop)](https://travis-ci.org/ptrbrynt/timey)
+![Crates.io](https://img.shields.io/crates/v/timey.svg)
+![Crates.io](https://img.shields.io/crates/d/timey.svg)
+![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/ptrbrynt/timey.svg)
+![Crates.io](https://img.shields.io/crates/l/timey.svg)
 
 Timey is a command-line application written in Rust which allows for quick and easy translation between timestamps and formatted date-times.
 
@@ -51,4 +55,32 @@ For a full list of formatting specifiers, see [here](https://docs.rs/chrono/0.4.
 -f, --format # The date format to use for parsing/formatting
 -m, --millis # Use timestamps in millis rather than seconds
 -h, --help # Display help
+```
+
+## Display Current Time
+
+_The `-c` flag for copying the result to the clipboard also works with these commands._
+
+### As a timestamp
+
+```bash
+$ timey now display
+1551908316
+```
+
+```bash
+$ timey now display -m
+1551908316000
+```
+
+### As a formatted date-time string
+
+```bash
+$ timey now format
+2019-03-06T21:38:30.265352+00:00
+```
+
+```bash
+$ timey now format -f '%Y-%m-%d'
+2019-03-06
 ```
