@@ -52,3 +52,31 @@ For a full list of formatting specifiers, see [here](https://docs.rs/chrono/0.4.
 -m, --millis # Use timestamps in millis rather than seconds
 -h, --help # Display help
 ```
+
+## Display Current Time
+
+_The `-c` flag for copying the result to the clipboard also works with these commands._
+
+### As a timestamp
+
+```bash
+$ timey now display
+1551908316
+```
+
+```bash
+$ timey now display -m
+1551908316000
+```
+
+### As a formatted date-time string
+
+```bash
+$ timey now format
+2019-03-06T21:38:30.265352+00:00
+```
+
+```bash
+$ timey now format -f '%Y-%m-%d'
+2019-03-06
+```

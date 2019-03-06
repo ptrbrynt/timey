@@ -69,9 +69,46 @@ pub fn run() -> Result<(), &'static str> {
                         .required(true)
                         .takes_value(true)
                         .help(
-                        "An epoch timestamp in seconds (or in milliseconds if the -m flag is set)",
+                        "An epoch timestamp in seconds (or in milliseconds if the -m flag is set)"
                     ),
                 ),
+        )
+        .subcommand(
+            SubCommand::with_name("now")
+                .subcommand(
+                    SubCommand::with_name("format")
+                        .arg(
+                            Arg::with_name("format")
+                                .short("f")
+                                .long("format")
+                                .required(true)
+                                .help("The date-time format in which to display the current date-time")
+                                .takes_value(true)
+                                .default_value("%+")
+                                .value_name("FORMAT"),
+                        )
+                        .arg(
+                            Arg::with_name("copy")
+                                .short("c")
+                                .long("copy")
+                                .help("Copy the result to the clipboard"),
+                        ),
+            )
+            .subcommand(
+                SubCommand::with_name("display")
+                .arg(
+                    Arg::with_name("copy")
+                        .short("c")
+                        .long("copy")
+                        .help("Copy the result to the clipboard"),
+                )
+                .arg(
+                    Arg::with_name("milliseconds")
+                        .short("m")
+                        .long("millis")
+                        .help("Display the current timestamp in milliseconds"),
+                ),
+            ),
         )
         .get_matches();
 
@@ -108,6 +145,25 @@ pub fn run() -> Result<(), &'static str> {
         match result {
             Ok(_) => Ok(()),
             Err(_) => Err("There was an error formatting the input"),
+        }
+    } else if subcommand == "now" {
+        let (now_sub, now_matches) = subcommand_matches.subcommand();
+        let now_matches = now_matches.unwrap();
+        if now_sub == "format" {
+            let fmt = now_matches.value_of("format").unwrap();
+            let copy = now_matches.is_present("copy");
+            let result = format_now(fmt, copy);
+            match result {
+                Ok(_) => Ok(()),
+                Err(_) => Err("An error occurred"),
+            }
+        } else if now_sub == "display" {
+            let copy = now_matches.is_present("copy");
+            let millis = now_matches.is_present("milliseconds");
+            display_now(millis, copy);
+            Ok(())
+        } else {
+            Err("Unrecognised subcommand")
         }
     } else {
         Err("Unrecognised subcommand")
@@ -156,6 +212,34 @@ fn format(input: i64, format: &str, millis: bool, copy: bool) -> Result<String, 
 fn copy_to_clipboard(data: &str) {
     let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
     ctx.set_contents(data.to_owned()).unwrap();
+}
+
+fn format_now(format: &str, copy: bool) -> Result<String, &'static str> {
+    let dt = Utc::now();
+
+    let formatted = dt.format(format).to_string();
+
+    println!("{}", formatted);
+    if copy {
+        copy_to_clipboard(&formatted);
+    }
+    Ok(formatted)
+}
+
+fn display_now(millis: bool, copy: bool) -> i64 {
+    let dt = Utc::now();
+    let timestamp = if millis {
+        dt.timestamp_millis()
+    } else {
+        dt.timestamp()
+    };
+
+    println!("{}", timestamp);
+    if copy {
+        copy_to_clipboard(&timestamp.to_string());
+    }
+
+    timestamp
 }
 
 #[cfg(test)]
