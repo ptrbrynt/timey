@@ -1,6 +1,6 @@
 # Timey
 
-[![Build Status](https://travis-ci.org/ptrbrynt/timey.svg?branch=master)](https://travis-ci.org/ptrbrynt/timey)
+[![Build Status](https://travis-ci.com/ptrbrynt/timey.svg?branch=master)](https://travis-ci.com/ptrbrynt/timey)
 
 Timey is a command-line application written in Rust which allows for quick and easy translation between timestamps and formatted date-times.
 
