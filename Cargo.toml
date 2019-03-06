@@ -1,6 +1,8 @@
 [package]
 name = "timey"
 version = "0.1.0"
+description = "A simple command line tool for converting between timestamps and datetime strings"
+license = "MIT"
 authors = ["Peter Bryant <petermbryant@gmail.com>"]
 edition = "2018"
 
