@@ -1,3 +1,10 @@
+extern crate chrono;
+extern crate clap;
+use timey;
+
 fn main() {
-    println!("Hello, world!");
+    match timey::run() {
+        Ok(_) => (),
+        Err(err) => eprintln!("{}", err),
+    }
 }
