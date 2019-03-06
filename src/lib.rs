@@ -1,5 +1,6 @@
 use chrono::{format::ParseError, prelude::*};
-use clap::{App, Arg, ArgMatches, SubCommand};
+use clap::{App, Arg, SubCommand};
+use clipboard::{ClipboardContext, ClipboardProvider};
 
 pub fn run() -> Result<(), &'static str> {
     let matches = App::new("timey")
@@ -115,19 +116,16 @@ fn parse(input: &str, format: &str, millis: bool, copy: bool) -> Result<i64, Par
 
     match parsed {
         Ok(value) => {
-            println!(
-                "{}",
-                if millis {
-                    value.timestamp_millis()
-                } else {
-                    value.timestamp()
-                }
-            );
-            Ok(if millis {
+            let timestamp = if millis {
                 value.timestamp_millis()
             } else {
                 value.timestamp()
-            })
+            };
+            if copy {
+                copy_to_clipboard(&timestamp.to_string());
+            }
+            println!("{}", timestamp);
+            Ok(timestamp)
         }
         Err(err) => {
             eprintln!("{}", err);
@@ -146,7 +144,15 @@ fn format(input: i64, format: &str, millis: bool, copy: bool) -> Result<String, 
     let formatted = dt.format(format).to_string();
 
     println!("{}", formatted);
+    if copy {
+        copy_to_clipboard(&formatted);
+    }
     Ok(formatted)
+}
+
+fn copy_to_clipboard(data: &str) {
+    let mut ctx: ClipboardContext = ClipboardProvider::new().unwrap();
+    ctx.set_contents(data.to_owned()).unwrap();
 }
 
 #[cfg(test)]
