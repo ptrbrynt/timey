@@ -79,7 +79,10 @@ pub fn run() -> Result<(), &'static str> {
 
     let subcommand_matches = match subcommand_matches {
         Some(value) => value,
-        None => return Err("Subcommand not present"),
+        None => {
+            println!("Please specify a subcommand, or type 'timey -h' for help");
+            return Ok(());
+        }
     };
 
     if subcommand == "parse" {
