@@ -4,4 +4,4 @@ deploy:
   on:
     branch: master
   provider: cargo
-  token: CRATES_TOKEN
+  token: $CRATES_TOKEN
